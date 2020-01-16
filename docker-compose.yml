@@ -1,6 +1,12 @@
 version: '2'
 
-# Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
+# Note: 
+# - Do not add single quotes '' and Double quotes "" to variables. Having spaces still works without quotes where required.
+# - try to use assistance softwares like https://directory.apache.org/studio/.
+# - try to avoid as possible changes of the defualt if not comaptable then try to change it.
+# - start your configurations at users then groups etc..,step by step to avoide errors mean to know where is the wrong.
+# - if you still getting errors try to use Rocket.chat to check your config
+# https://rocket.chat/docs/installation/docker-containers/
 #---------------------------------------------------------------------------------------------------------
 # ==== CREATING USERS AND LOGGING IN TO WEKAN ====
 # https://github.com/wekan/wekan/wiki/Adding-users
@@ -403,6 +409,7 @@ services:
       #- LDAP_PORT=389
       #
       # The host server for the LDAP server
+      # if you put a localdomain make sure that your domain resolved by DNS or select an IP
       #- LDAP_HOST=localhost
       #
       # The base DN for the LDAP Tree
@@ -428,8 +435,8 @@ services:
       #
       # The search user DN - You need quotes when you have spaces in parameters
       # 2 examples:
-      #- LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan"
-      #- LDAP_AUTHENTIFICATION_USERDN="CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com"
+      #- LDAP_AUTHENTIFICATION_USERDN=CN=ldap admin,CN=users,DC=domainmatter,DC=lan
+      #- LDAP_AUTHENTIFICATION_USERDN=CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com
       #
       # The password for the search user
       #- LDAP_AUTHENTIFICATION_PASSWORD=pwd
@@ -459,12 +466,14 @@ services:
       #- LDAP_REJECT_UNAUTHORIZED=false
       #
       # Option to login to the LDAP server with the user's own username and password, instead of an administrator key. Default: false (use administrator key).
-      #- LDAP_USER_AUTHENTICATION="true"
+      #- LDAP_USER_AUTHENTICATION=true
       #
       # Which field is used to find the user for the user authentication. Default: uid.
-      #- LDAP_USER_AUTHENTICATION_FIELD="uid"
+      # try don't change this option until you sure what you do.
+      #- LDAP_USER_AUTHENTICATION_FIELD=uid
       #
       # Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
+      # objectGUID,ibm-entryUUID,GUID,dominoUNID,nsuniqueId,uidNumber
       #- LDAP_USER_SEARCH_FILTER=
       #
       # base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree)
@@ -504,7 +513,7 @@ services:
       #
       # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname. fullname / sAMAccountName
       #- LDAP_FULLNAME_FIELD=fullname
-      #
+      # caution: if you unable it,maybe merge local (admin) with your remote users.
       #- LDAP_MERGE_EXISTING_USERS=false
       #
       # Allow existing account matching by e-mail address when username does not match
